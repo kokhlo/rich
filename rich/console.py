@@ -2483,7 +2483,9 @@ class Console:
                 )
             )
         y = 0
+        line_count = 0
         for y, line in enumerate(Segment.split_and_crop_lines(segments, length=width)):
+            line_count = y + 1
             x = 0
             for text, style, _control in line:
                 style = style or Style()
@@ -2537,7 +2539,7 @@ class Console:
                     )
                 x += cell_len(text)
 
-        line_offsets = [line_no * line_height + 1.5 for line_no in range(y)]
+        line_offsets = [line_no * line_height + 1.5 for line_no in range(line_count)]
         lines = "\n".join(
             f"""<clipPath id="{unique_id}-line-{line_no}">
     {make_tag("rect", x=0, y=offset, width=char_width * width, height=line_height + 0.25)}

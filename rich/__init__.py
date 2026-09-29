@@ -15,8 +15,10 @@ _console: Optional["Console"] = None
 
 try:
     _IMPORT_CWD = os.path.abspath(os.getcwd())
-except FileNotFoundError:
-    # Can happen if the cwd has been deleted
+except OSError:
+    # Can happen if the cwd has been deleted, or if it exists but the process
+    # is not permitted to resolve it (PermissionError on macOS, for example,
+    # when the cwd is inside a File Provider directory such as Dropbox).
     _IMPORT_CWD = ""
 
 
